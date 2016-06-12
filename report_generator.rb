@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'letter_opener'
+require 'letter_opener' if ENV['RACK_ENV'] == 'production'
 require 'pony'
 require 'json'
 
