@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -14,6 +15,9 @@ PLATFORMS
 
 DEPENDENCIES
   sinatra
+
+RUBY VERSION
+   ruby 2.2.3p173
 
 BUNDLED WITH
    1.12.1
