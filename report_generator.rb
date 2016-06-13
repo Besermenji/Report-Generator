@@ -39,7 +39,8 @@ class ReportGenerator < Sinatra::Base
       Pony.mail(:to => @request_payload["email"],
                 :from => 'noreply@receipt-yourself.com',
                 :subject => 'hi',
-                :body => "Hello there. It is #{DateTime.now}. This is just a test.")
+                :body => "Hello there. It is #{DateTime.now}. This is just a test.",
+                :attachments => {"Silly.pdf" => File.read("reports/Silly.pdf")})
       redirect '/report_sent'
     else
       redirect '/something_went_wrong'
