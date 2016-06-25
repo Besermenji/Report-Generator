@@ -47,4 +47,10 @@ class ReportGenerator < Sinatra::Base
     end
   end
 
+  get '/pdf' do
+    kit = PDFKit.new('http://google.com')
+    headers['Content-Type'] = 'application/pdf'
+    file = kit.to_file('pdf_test')
+  end
+
 end
