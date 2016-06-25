@@ -3,6 +3,10 @@ ruby '2.2.3'
 
 gem 'sinatra'
 
+# Gems for pdf generation
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'racksh'
