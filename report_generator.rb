@@ -36,15 +36,30 @@ class ReportGenerator < Sinatra::Base
 
   post '/send_report' do
     if @request_payload && @request_payload["email"]
+      generate_pdf
       Pony.mail(:to => @request_payload["email"],
                 :from => 'noreply@receipt-yourself.com',
                 :subject => 'hi',
                 :body => "Hello there. It is #{DateTime.now}. This is just a test.",
-                :attachments => {"Silly.pdf" => File.read("reports/Silly.pdf")})
+                :attachments => {"report.pdf" => File.read(@file)})
       redirect '/report_sent'
     else
       redirect '/something_went_wrong'
     end
+  end
+
+  get '/pdf' do
+    generate_pdf
+  end
+
+  def generate_pdf
+    kit = PDFKit.new(erb :'reports/report-template.html')
+    kit.stylesheets << 'views/reports/css/bootstrap-theme.min.css'
+    kit.stylesheets << 'views/reports/css/bootstrap.min.css'
+    kit.stylesheets << 'views/reports/css/style.css'
+    headers['Content-Type'] = 'application/pdf'
+    @file_name = "pdf_test#{Time.now.getutc}"
+    @file = kit.to_file(@file_name)
   end
 
 end
