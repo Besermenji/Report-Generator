@@ -48,9 +48,12 @@ class ReportGenerator < Sinatra::Base
   end
 
   get '/pdf' do
-    kit = PDFKit.new('http://google.com')
+    kit = PDFKit.new(erb :'reports/report-template.html')
+    kit.stylesheets << 'views/reports/css/bootstrap-theme.min.css'
+    kit.stylesheets << 'views/reports/css/bootstrap.min.css'
+    kit.stylesheets << 'views/reports/css/style.css'
     headers['Content-Type'] = 'application/pdf'
-    file = kit.to_file('pdf_test')
+    file = kit.to_file("pdf_test#{Time.now.getutc}")
   end
 
 end
