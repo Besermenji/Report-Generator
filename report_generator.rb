@@ -1,59 +1,26 @@
 require 'sinatra'
 require 'letter_opener' unless ENV['RACK_ENV'] == 'production'
+require 'pry' unless ENV['RACK_ENV'] == 'production'
 require 'pony'
 require 'json'
 
 
 class ReportGenerator < Sinatra::Base
   
-  before do
-    unless request.body.read == ""
-      request.body.rewind
-      @request_payload ||= JSON.parse request.body.read
-    end
-  end
-
-  get '/' do
-    "Hello World! Im just a poor app, nobody loves me."
-  end
-
-  get '/report_sent' do
-    "Report sent!"
-  end
-
-  get '/something_went_wrong' do
-    "Oh noes! 
-    You don't like the smell? 
-    Maybe I don't like the smell that some cars produce? 
-    I sure as hell don't like it when 
-    people fart near me or if someone has 
-    bad body odor. You get a sore throat, 
-    maybe I get a headache 
-    from prolonged exposure to 
-    those smells. Should we make 
-    everything that doesn't smell good illegal?"
-  end
-
-  post '/send_report' do
-    if @request_payload && @request_payload["email"]
-      generate_pdf
-      Pony.mail(:to => @request_payload["email"],
+  post '/kif/?' do
+    @kif_info = JSON.parse(params["data"])
+    generate_pdf
+      Pony.mail(:to => @kif_info["email"],
                 :from => 'noreply@receipt-yourself.com',
                 :subject => 'hi',
-                :body => "Hello there. It is #{DateTime.now}. This is just a test.",
-                :attachments => {"report.pdf" => File.read(@file)})
-      redirect '/report_sent'
-    else
-      redirect '/something_went_wrong'
-    end
-  end
+                :body => "Hello there. It is #{DateTime.now}. Enjoy your KIF report.",
+                :attachments => {"KIF_report_#{DateTime.now}.pdf" => File.read(@file)})
 
-  get '/pdf' do
-    generate_pdf
+    status 200
   end
 
   def generate_pdf
-    kit = PDFKit.new(erb :'reports/report-template.html')
+    kit = PDFKit.new(erb :'reports/kif-report-template.html')
     kit.stylesheets << 'views/reports/css/bootstrap-theme.min.css'
     kit.stylesheets << 'views/reports/css/bootstrap.min.css'
     kit.stylesheets << 'views/reports/css/style.css'
