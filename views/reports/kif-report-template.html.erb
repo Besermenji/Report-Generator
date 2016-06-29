@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Report</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-4"> 
+      <address>
+        <strong>Report date:</strong> <%= Date.today %>
+        <br>
+        <strong>Report requester:</strong> <%= @kif_info["email"] %>
+        <br>
+        <strong>Requester company:</strong> <%= @kif_info["info"][0]["financial_year"]["company"]["name"] %>
+      </address>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>
+              Number
+            </th>
+            <th>
+              Payment Amount
+            </th>
+            <th>
+              Remaining Amount
+            </th>
+            <th>
+              Issuance Date
+            </th>
+            <th>
+              Circulation Date
+            </th>
+            <th>
+              Payment Deadline
+            </th>
+            <th>
+              Business Partner
+            </th>
+            <th>
+              Financial Year
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @kif_info["info"].each do |kif| %>
+          <tr>
+            <td>
+              <%= kif["number"] %>
+            </td>
+            <td>
+              <%= kif["payment_amount"] %>
+            </td>
+            <td>
+              <%= kif["remaining_amount"] %>
+            </td>
+            <td>
+              <%= kif["issuance_date"] %>
+            </td>
+            <td>
+              <%= kif["circulation_date"] %>
+            </td>
+            <td>
+              <%= kif["payment_deadline"] %>
+            </td>
+            <td>
+              <%= kif["business_partner"]["name"] %>
+            </td>
+            <td>
+              <%= kif["financial_year"]["year"] %>
+            </td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7">&nbsp;</div>
+    <div class="col-md-4">
+      <p>
+        _________________________________
+      </p>
+      <p>
+        On date: <%= Date.today %>
+      </p>
+    </div>
+  </div>
+  </div>
+  </body>
+</html>
