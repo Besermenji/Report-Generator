@@ -22,9 +22,9 @@
       <address>
         <strong>Report date:</strong> <%= Date.today %>
         <br>
-        <strong>Report requester:</strong> <%= @kif_info["email"] %>
+        <strong>Report requester:</strong> <%= @kuf_info["email"] %>
         <br>
-        <strong>Requester company:</strong> <%= @kif_info["company"]["name"] %>
+        <strong>Requester company:</strong> <%= @kuf_info["company"]["name"] %>
       </address>
     </div>
   </div>
@@ -62,7 +62,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @kif_info["info"].each do |kif| %>
+          <% @kuf_info["info"].each do |kif| %>
           <tr>
             <td>
               <%= kif["number"] %>
