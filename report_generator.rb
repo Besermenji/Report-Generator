@@ -31,6 +31,28 @@ class ReportGenerator < Sinatra::Base
     status 200
   end
 
+  post '/ios/?' do
+    @ios_info = JSON.parse(params["data"])
+    # generate_pdf('reports/kuf-report-template.html')
+    #   Pony.mail(:to => @kuf_info["email"],
+    #             :from => 'noreply@receipt-yourself.com',
+    #             :subject => 'hi',
+    #             :body => "Hello there. It is #{DateTime.now}. Enjoy your KUF report.",
+    #             :attachments => {"KUF_report_#{DateTime.now}.pdf" => File.read(@file)})
+    status 200
+  end
+
+  post '/partner_card/?' do
+    @partner_card = JSON.parse(params["data"])
+    # generate_pdf('reports/kuf-report-template.html')
+    #   Pony.mail(:to => @kuf_info["email"],
+    #             :from => 'noreply@receipt-yourself.com',
+    #             :subject => 'hi',
+    #             :body => "Hello there. It is #{DateTime.now}. Enjoy your KUF report.",
+    #             :attachments => {"KUF_report_#{DateTime.now}.pdf" => File.read(@file)})
+    status 200
+  end
+
   def generate_pdf(pdf_path)
     kit = PDFKit.new(erb pdf_path.to_sym)
     kit.stylesheets << 'views/reports/css/bootstrap-theme.min.css'
