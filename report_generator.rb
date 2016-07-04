@@ -6,6 +6,19 @@ require 'json'
 
 
 class ReportGenerator < Sinatra::Base
+
+  use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    
+    if ENV['RACK_ENV'] == 'production'
+      @username = ENV["SINATRA_USERNAME"]
+      @password = ENV["SINATRA_PASSWORD"]
+    else
+      @username = "admin"
+      @password = "admin"
+    end
+
+    username == @username and password == @password
+  end
   
   post '/kif/?' do
     @kif_info = JSON.parse(params["data"])
