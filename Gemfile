@@ -6,6 +6,7 @@ gem 'sinatra'
 # Gems for pdf generation
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
+gem 'origami'
 
 group :development, :test do
   gem 'awesome_print'
